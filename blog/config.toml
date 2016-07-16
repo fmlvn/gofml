@@ -1,4 +1,4 @@
-baseurl = "http://replace-this-with-your-hugo-site.com/"
+baseurl = "http://golang.fml.vn/"
 title = "Golang.FML.vn"
 theme = "blackburn"
 author = "FML.vn team"
