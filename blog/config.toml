@@ -1,7 +1,7 @@
 baseurl = "http://replace-this-with-your-hugo-site.com/"
-title = "Your site title"
+title = "Golang.FML.vn"
 theme = "blackburn"
-author = "Your name"
+author = "FML.vn team"
 # Shown in the side menu
 copyright = "&copy; 2016. All rights reserved."
 canonifyurls = true
@@ -13,8 +13,8 @@ paginate = 10
 
 [params]
   # Shown in the home page
-  subtitle = "A Hugo Theme"
-  brand = "Blackburn"
+  subtitle = "Blogging on Golang programming"
+  brand = "FML.vn"
   googleAnalytics = "Your Google Analytics tracking ID"
   disqus = "Your Disqus shortname"
   # CSS name for highlight.js
@@ -33,7 +33,7 @@ paginate = 10
     name = "Posts"
     pre = "<i class='fa fa-list fa-fw'></i>"
     weight = 1
-    identifier = "posts"
+    identifier = "post"
     url = "/posts/"
   [[menu.main]]
     name = "About"
@@ -52,34 +52,34 @@ paginate = 10
   # by entering your username or ID.
 
   # SNS microblogging
-  twitter = "*"
-  gnusocial = "*" # Specify href (e.g. https://quitter.se/yourusername)
-  facebook = "*"
-  googleplus = "*"
-  weibo = "*"
+#  twitter = "*"
+#  gnusocial = "*" # Specify href (e.g. https://quitter.se/yourusername)
+  facebook = "https://www.facebook.com/pyfml"
+#  googleplus = "*"
+#  weibo = "*"
 
   # SNS photo/video sharing
-  instagram = "*"
-  flickr = "*"
-  pinterest = "*"
-  youtube = "*"
-  vimeo = "*"
-  vine = "*"
-  slideshare = "*"
+# instagram = "*"
+#  flickr = "*"
+#  pinterest = "*"
+#  youtube = "*"
+#  vimeo = "*"
+#  vine = "*"
+#  slideshare = "*"
 
   # SNS career oriented
-  linkedin = "*"
-  xing = "*"
-
-  # SNS news
-  reddit = "*"
-  hackernews = "*"
+#  linkedin = "*"
+#  xing = "*"
+#
+#  # SNS news
+#  reddit = "*"
+#  hackernews = "*"
 
   # Techie
-  github = "yoshiharuyamashita"
-  bitbucket = "*"
-  stackoverflow = "*"
-
-  # Other
-  keybase = "*"
+  github = "https://github.com/fmlvn/"
+#  bitbucket = "*"
+#  stackoverflow = "*"
+#
+#  # Other
+#  keybase = "*"
 
