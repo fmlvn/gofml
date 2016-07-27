@@ -182,5 +182,21 @@ func assertFoo(t *testing.T, expected, actual foo) {
 
 There another test to verify nested field works also
 
+```
+meomap@meomap:~/workspakce/src/github.com/meomap/jsonexample/jsonnumber$ go test -v ./...
+=== RUN   TestCustomDecodeNumber
+
+** 'ratio' field value=0.2 type=float64
+** 'retry' field value=5 type=int
+--- PASS: TestCustomDecodeNumber (0.00s)
+=== RUN   TestCustomDecodeNumberNested
+
+** 'ratio' field value=0.2 type=float64
+** 'retry' field value=5 type=int
+--- PASS: TestCustomDecodeNumberNested (0.00s)
+PASS
+ok      github.com/meomap/jsonexample/jsonnumber        0.004s
+```
+
 Source code: [meomap/jsonexample](https://github.com/meomap/jsonexample/tree/master/jsonnumber)
 
