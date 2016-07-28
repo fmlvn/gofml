@@ -11,27 +11,25 @@ categories:
 
 ### Preface
 
-At previous post, we had encountered a problem when decode arbitray JSON data containing number. To recap, we decode JSON data into a `map[string]interface{}` and suffered type change, from `int` to `float64`, see more at [JSON Pitfalls]({{< relref "post/json-1.md" >}}).
+In previous post, we encountered a problem when decoding arbitray JSON data which contains number. To recap, we decoded JSON data into a `map[string]interface{}` and suffered type change, from `int` to `float64`, see more at [JSON Pitfalls]({{< relref "post/json-1.md" >}}).
 
 
-This issue was mentioned at another post too, please see [50 Mistakes](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#json_num)
+This issue was mentioned in another post too, please see [50 Mistakes](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#json_num)
 
 That blog author proposed these options:
 
 1. Using the float value as-is
-2. Convert the float value to the integer type you need.
+2. Converting the float value to the integer type you need.
 3. Using a Decoder type to unmarshal JSON using `json.Number`.
 4. Using a `struct` type that maps your numeric value to the numeric type you need.
 5. Using a `struct` type that maps your number value to `json.RawMessage`
 
-In my opiion, the best way to handling that should always the **option 4** which to not decode arbitrary data at all. We should know struct we are decoding to. There's other benefits of that beside handling number. We can use JSON tag to vaidate input data, so there's no more overhead to check type, check nil, empty value after that. [json.Marshal](https://golang.org/pkg/encoding/json/#Marshal)
+In my Opinion, the best way to handle that is the **option 4** which to not decode arbitrary data at all. We should know struct we are decoding to. Beside, we can use JSON tag to validate input data, so there's no more unnecessary type/nil or empty value check afterward. [json.Marshal](https://golang.org/pkg/encoding/json/#Marshal)
 
-The worst must be the **option 5** as it will break code resusability. With struct field type `json.RawMessage` our app is strongly coupled with `encoding/json`.  Using struct tag like `json`, `yaml` to declare encoding is great and we should not eliminate that.
+The worst must be the **option 5** as it will break code reusability. With struct field type `json.RawMessage` our app is strongly coupled with `encoding/json`.  Using struct tag like `json`, `yaml` to declare encoding is great and we should not eliminate that.
 
 In case we have no choice but have to decode to a `map[string]interface{}`, say it depends on other developer usage then we can consider both `option 2 & 3`. We will use decoding option `json.Number` then convert its string value to the actual number type. For generic usage, `reflection` is used to inspect all number fields.
 
-
-We declare decoder like this
 
 Our custom decoder will take input of serialized data and input interface to decode to
 ```
@@ -55,7 +53,7 @@ func decodeUseNumber(content []byte, in interface{}) error {
 
 At this point, if no error happens, our `in` object is loaded with input serialized data. All input number will be represented by `json.Number` which is in turn a `string` named type. This `json.Number` type has useful methods to convert number string to `int` or `float`
 
-It's ok if we stop here . But we still can do more so this function's consumer doesn't need to know about this `json.Number` and think about how to use it.
+It's ok if we stop here . But we still can do more so this function's consumer doesn't need to know about this `json.Number`
 
 We can lookup for all arbitrary map fields contain `json.Number` type and convert them to actual number type, something like this
 
@@ -70,14 +68,14 @@ for f in struct.Fields:
                 map[key] = value.Integer()
 ```
 
-There're two steps:
+There are two steps:
 
     + Find all arbitrary fields `map[string]interface`
     + Convert all `json.Number` values in map
 
-It's better to keep theses separately developed.
+It's better to break these steps into small functions.
 
-We define function name `iterateMapField` which fetch all map fields and execute another function on found map
+We define function name `iterateMapField` which fetches all map fields and executes another function on map found
 
 ```
 func iterateMapFields(v reflect.Value, fn func(map[string]interface{}) error) (err error) {
